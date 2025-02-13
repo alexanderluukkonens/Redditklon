@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <title>Reddit</title>
+  </head>
+  <body>
+    <div id="page-wrapper">
+      <header>
+        <a class="header-top">
+          <!-- <img
+            style="height: 10rem"
+            src="data:image/png;base64,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"
+          /> -->
+            <input id="input" type="text", placeholder="Search">
+        </a>
+      </header>
+    </div>
+    <div class="content-wrapper">
+        <div class="left-bar">
+          <div id="left-bar-text">
+            <li>Start</li>
+            <li>Popular</li>
+            <li>Explore</li>
+            <li>Everything</li>
+            <li>Help</li>
+            <li>Communities</li>
+            <li>About Reddit</li>
+          </div>
+        </div>
+    
+      <div class="hero-section">
+        <strong>HEJ</strong>
+      </div>
+      <div class="right-bar">
+      </div>
+  </body>
+</html>
