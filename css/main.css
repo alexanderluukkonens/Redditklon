@@ -1,11 +1,11 @@
 body {
-   background-color: rebeccapurple;
+   background-color: black;
 }
 
 .header-top {
     background-color: black;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     border-color: white;
     font-size: x-large;
@@ -13,10 +13,33 @@ body {
     border-bottom: solid grey;
 }
 
+#header-top-img {
+    height: 9.9rem;
+    object-fit: contain;
+    width: auto;
+}
+
+#header-top-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-left: 32%;
+    height: 3rem;
+}
+
 .content-wrapper {
     display: flex;
     width: 100%;
   }
+
+.content-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30rem;
+    width: 50rem;
+    background-color: grey;
+}
+
 
 .hero-section {
     display: flex;
@@ -24,7 +47,7 @@ body {
     justify-content: center;
     height: 100vh;
     width: 75%;
-    background-color: blue;
+    background-color: black;
     color: white;
 }
 
@@ -32,7 +55,7 @@ body {
     display: flex;
     height: 100vh;
     width: 12.5%;
-    background-color: red;
+    background-color: black;
     color: white;
     border-right: solid grey;
 
@@ -41,14 +64,14 @@ body {
 #left-bar-text {
     font-size: 1.5rem;
     margin-inline-start: 20%;
-    margin-top: 10%;
+    margin-top: 25%;
 }
 
 .right-bar {
-    display: flex;
+    display: none;
     height: 100vh;
     width: 12.5%;
-    background-color: green;
+    background-color: black;
     color: white;
 }
 
@@ -59,4 +82,5 @@ body {
     width: 20rem;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     transition: border-color 0.3s ease;
+    margin-left: 30%;
 }
