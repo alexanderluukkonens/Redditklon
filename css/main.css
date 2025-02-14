@@ -1,20 +1,23 @@
 body {
-   background-color: black;
+   background-color: #282727;
+   padding: 0;
+   margin: 0;
 }
 
 .header-top {
-    background-color: black;
+    background-color: #1b1a1a;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     border-color: white;
     font-size: x-large;
-    height: 4rem;
-    border-bottom: solid grey;
+    height: 6rem;
+    border-bottom: 1px solid rgb(58, 57, 57);
 }
 
 #header-top-img {
-    height: 9.9rem;
+    height: 7rem;
+    display: none;
     object-fit: contain;
     width: auto;
 }
@@ -37,7 +40,7 @@ body {
     justify-content: center;
     height: 30rem;
     width: 50rem;
-    background-color: grey;
+    background-color: #282727;
 }
 
 
@@ -47,7 +50,7 @@ body {
     justify-content: center;
     height: 100vh;
     width: 75%;
-    background-color: black;
+    background-color: #1b1a1a;
     color: white;
 }
 
@@ -55,9 +58,9 @@ body {
     display: flex;
     height: 100vh;
     width: 12.5%;
-    background-color: black;
+    background-color: #1b1a1a;
     color: white;
-    border-right: solid grey;
+    border-right: 1px solid rgb(58, 57, 57);
 
 }
 
@@ -68,11 +71,12 @@ body {
 }
 
 .right-bar {
-    display: none;
+    display: flex;
     height: 100vh;
     width: 12.5%;
-    background-color: black;
+    background-color: #1b1a1a;
     color: white;
+    /* border-left:  solid lightgray; */
 }
 
 #input {
