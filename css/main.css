@@ -1,160 +1,177 @@
 body {
-    background-color: #1b1a1a;
-   padding: 0;
-   margin: 0;
+  background-color: #1b1a1a;
+  padding: 0;
+  margin: 0;
+  font-family: "Oswald", serif;
 }
 
-.header-top {
-    background-color: #1b1a1a;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    border-color: white;
-    font-size: x-large;
-    height: 4rem;
-    border-bottom: 1px solid rgb(58, 57, 57);
+.navbar {
+  width: 100%;
+  background-color: #1b1a1a;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-color: white;
+  font-size: x-large;
+  height: 4rem;
+  border-bottom: 1px solid rgb(58, 57, 57);
+}
+
+.navbar-left {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.navbar-center {
+  display: flex;
+  align-items: center;
+  width: 20rem;
+}
+
+.navbar-buttons {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  margin-right: 2rem;
 }
 
 #header-top-img {
-    height: 10rem;
-    width: auto;
-    object-fit: contain;
-    margin-left: 0%;
-    border-top-right-radius: 50%;
-    border-bottom-right-radius: 30%;
-    border-top-left-radius: 50%;
-    border-bottom-left-radius: 30%;
-    
-}
-
-#header-top-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-left: 21%;
-    height: 3rem;
-    border-radius: 25px;
-}
-
-#header-top-buttons button {
-    border-radius: 25px;  
-    height: 100%;        
-    border: none;       
-    cursor: pointer;     
-    padding: 0 1.5rem;   
-    background-color: #a7a3a3;
-    display: flex;      
-    align-items: center; 
-    justify-content: center;
-}
-
-#header-top-buttons button:hover {
-    background-color: #858282;
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.content-wrapper {
-    display: flex;
-    width: 100%;
-  }
-
-.content-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 30rem;
-    width: 50rem;
-    background-color: #282727;
-}
-
-
-.main-section {
-    display: flex;
-    align-items: flex-start;
-    padding-top: 3rem;
-    justify-content: center;
-    height: 100vh;
-    width: 75%;
-    background-color: #1b1a1a;
-    color: white;
-}
-
-.main-section-posts {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 15rem;
-    width: 40rem;
-    background-color: black;
-    
-}
-
-#main-section-title {
-    display: flex;
-    margin: 0.5rem;
-    height: 3rem;
-    width: 35rem;
-    background-color: rgb(78, 77, 77);
-}
-
-#main-section-body {
-    display: flex;
-    margin: 0.5rem;
-    height: 15rem;
-    width: 35rem;
-    background-color: rgb(78, 77, 77);
-}
-
-#main-section-tags {
-    display: flex;
-    margin: 0.5rem;
-    height: 3rem;
-    width: 35rem;
-    background-color: rgb(78, 77, 77);
-}
-#main-section-user {
-    display: flex;
-    margin: 0.5rem;
-    height: 3rem;
-    width: 35rem;
-    background-color: rgb(78, 77, 77);
-}
-
-
-.left-bar {
-    display: flex;
-    height: 100vh;
-    width: 12.5%;
-    background-color: #1b1a1a;
-    color: white;
-    border-right: 1px solid rgb(58, 57, 57);
-
-}
-
-#left-bar-text {
-    font-size: 1.5rem;
-    margin-inline-start: 20%;
-    margin-top: 25%;
-    font-style: italic;
-}
-
-.right-bar {
-    display: flex;
-    height: 100vh;
-    width: 12.5%;
-    background-color: #1b1a1a;
-    color: white;
-    /* border-left:  solid lightgray; */
+  height: 8rem;
+  width: auto;
+  object-fit: contain;
+  padding-left: 0;
+  margin-left: 0%;
 }
 
 #input {
-    border: 2px solid #a7a3a3;;
-    border-radius: 20px;    font-size: 18px;
-    background-color: #a7a3a3;
-    width: 20rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    transition: border-color 0.3s ease;
-    margin-left: 30%;
-    outline: none;
+  border: 2px solid #a7a3a3;
+  border-radius: 20px;
+  font-size: 18px;
+  background-color: #a7a3a3;
+  width: 20rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: border-color 0.3s ease;
+  outline: none;
 }
 
+.navbar-buttons {
+  display: flex;
+  gap: 1rem;
+  height: 3rem;
+  border-radius: 25px;
+}
+
+#create-post-button {
+  width: 8rem;
+}
+
+.navbar-buttons button {
+  border-radius: 25px;
+  height: 100%;
+  border: none;
+  cursor: pointer;
+  padding: 0 1.5rem;
+  background-color: #a7a3a3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-buttons button:hover {
+  background-color: #858282;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.content-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+#main-section {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 75%;
+  background-color: #1b1a1a;
+  color: white;
+}
+
+.main-section-posts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3rem;
+  height: 15rem;
+  width: 50%;
+  background-color: #1b1a1a;
+  border: 1px solid rgb(58, 57, 57);
+  border-radius: 1rem;
+}
+
+.main-section-title {
+  display: flex;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  height: 3rem;
+  width: 35rem;
+  background-color: none;
+  font-weight: bold;
+  font-size: larger;
+  font-family: "Gill Sans", sans-serif;
+  border-bottom: 1px solid rgb(58, 57, 57);
+}
+
+.main-section-body {
+  display: flex;
+  margin: 0.5rem;
+  height: 15rem;
+  padding: 0.5rem;
+  width: 35rem;
+  background-color: none;
+  font-size: larger;
+  font-style: italic;
+}
+
+.main-section-tags {
+  display: flex;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  height: 3rem;
+  width: 35rem;
+  background-color: none;
+  font-size: large;
+}
+.main-section-user {
+  display: flex;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  height: 3rem;
+  width: 35rem;
+  background-color: none;
+}
+
+.left-bar {
+  display: flex;
+  min-height: 100vh;
+  width: 12.5%;
+  background-color: #1b1a1a;
+  color: white;
+  border-right: 1px solid rgb(58, 57, 57);
+}
+
+#left-bar-text {
+  font-size: 1.5rem;
+  margin-inline-start: 20%;
+  margin-top: 25%;
+}
+
+.right-bar {
+  display: flex;
+  min-height: 100vh;
+  width: 12.5%;
+  background-color: #1b1a1a;
+  color: white;
+}
