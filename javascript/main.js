@@ -3,10 +3,13 @@ import { api } from "./api/apiClient.js";
 import { localStorageManager } from "./storage/localStorageManager.js";
 
 const mainSection = document.getElementById("main-section");
-const createPostButton = document.getElementById("create-post-button");
 
-createPostButton.addEventListener("click", () => {
-  toggleCreatePostContainer();
+document.getElementById("create-post-button").addEventListener("click", () => {
+  document.getElementById("create-post-box").style.display = "flex";
+});
+
+document.querySelector(".close-button").addEventListener("click", () => {
+  document.getElementById("create-post-box").style.display = "none";
 });
 
 async function main() {
@@ -20,16 +23,16 @@ async function main() {
     }
 
     const users = await api.fetchUsersFromDummyJson();
-    // const comments = await api.fetchCommentsFromDummyJson();
+    const comments = await api.fetchCommentsFromDummyJson();
     // Clear the main section
     mainSection.innerHTML = "";
 
     // Render posts with users and comments
     posts.forEach((post) => {
       const user = users.users.find((user) => user.id === post.userId);
-      // const postComments = comments.comments
-      //   ? comments.comments.filter((comment) => comment.postId === post.id)
-      //   : [];
+      const postComments = comments.comments
+        ? comments.comments.filter((comment) => comment.postId === post.id)
+        : [];
       renderPosts(post, user);
     });
   } catch (error) {

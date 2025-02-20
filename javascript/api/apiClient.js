@@ -10,14 +10,16 @@ class ApiClient {
   }
 
   async fetchUsersFromDummyJson() {
-    const response = await fetch("https://dummyjson.com/users");
+    const response = await fetch(
+      "https://dummyjson.com/users/?limit=0&select=id,username"
+    );
     const data = await response.json();
     localStorageManager.saveToLocalStorage("users", data);
     return data;
   }
 
   async fetchCommentsFromDummyJson() {
-    const response = await fetch("https://dummyjson.com/Comments");
+    const response = await fetch("https://dummyjson.com/comments/?limit=0");
     const data = await response.json();
     localStorageManager.saveToLocalStorage("comments", data);
     return data;
