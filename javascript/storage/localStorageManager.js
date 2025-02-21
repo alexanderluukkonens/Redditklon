@@ -5,16 +5,16 @@ class LocalStorageManager {
     const data = localStorage.getItem(key);
 
     if (data !== null) {
-      return JSON.parse(data); // Om det finns data, konvertera och returnera
+      return JSON.parse(data); // Id data excist, convert and return
     } else {
-      return []; // Om det inte finns data, returnera en tom array
+      return []; // if data is 0, return empty array 
     }
   }
 
   saveToLocalStorage(key, value) {
     if (key && value !== undefined) {
-      const jsonData = JSON.stringify(value); // Konvertera värdet till en sträng
-      localStorage.setItem(key, jsonData); // Spara i localStorage
+      const jsonData = JSON.stringify(value); // Convert value to string 
+      localStorage.setItem(key, jsonData); // Save to localstorage 
     }
   }
 }

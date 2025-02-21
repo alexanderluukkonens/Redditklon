@@ -19,7 +19,7 @@ class ApiClient {
   }
 
   async fetchCommentsFromDummyJson() {
-    const response = await fetch("https://dummyjson.com/comments/?limit=0");
+    const response = await fetch("https://dummyjson.com/comments/?limit=10");
     const data = await response.json();
     localStorageManager.saveToLocalStorage("comments", data);
     return data;
