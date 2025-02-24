@@ -63,21 +63,30 @@
         </div>
       </div>
       <div id="create-post-box">
-        <header>Create Post</header>
-          <p>Title</p>
-          <input type="Title" placeholder="Input Title">
-          <p>Body</p>
-          <input type="Body" placeholder="Input Body">
-          <p>Tags</p>
-          <select style= "width:11rem;"  type = "tags" placeholder="Choose tags">
-            <option value="">Choose tagss</option>
+        <header class="create-post-header">Create Post</header>
+        <div class="create-post-input-title">
+          <input
+            id="input-title"
+            type="input-title"
+            placeholder="input-title"
+          />
+        </div>
+        <div class="create-post-input-body">
+          <textarea id="input-body" placeholder="input-body"></textarea>
+        </div>
+        <div class="create-post-select-tags">
+          <select id="select-tags" type="tags" placeholder="Choose tags">
+            <option>Choose tags</option>
             <option value="Andreas">Andreas</option>
-            </select>
-          <p>User</p>
-          <select style= "width:11rem;"  type = "user" placeholder="Choose User">
+          </select>
+        </div>
+        <div class="create-post-select-user">
+          <select id="select-user" type="user" placeholder="Choose User">
             <option value="">Choose User</option>
           </select>
+        </div>
         <button class="close-button">Close [X]</button>
+        <button class="submit-post-button">Submit Post</button>
       </div>
     </div>
   </body>
