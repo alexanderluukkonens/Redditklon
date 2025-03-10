@@ -1,0 +1,193 @@
+/* Styles for all form elements in the application */
+
+/* Create post form container */
+#create-post-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none; /* Initially hidden */
+  align-items: center;
+  flex-direction: column;
+  min-height: 50%;
+  width: 50%;
+  background-color: #1b1a1a;
+  color: white;
+  z-index: 1000;
+  border-radius: 8px;
+  border: 1px solid rgb(58, 57, 57);
+  padding: 10rem;
+}
+
+/* Create post form header */
+.create-post-header {
+  display: flex;
+  height: 5rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: 250%;
+  font-family: "Oswald", serif;
+  border-bottom: 1px solid rgb(58, 57, 57);
+  margin-top: -10%;
+}
+
+/* Title input container */
+.create-post-input-title {
+  display: flex;
+  height: 9rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: 250%;
+  font-family: "Oswald", serif;
+}
+
+/* Title input field */
+#input-title {
+  background-color: #1b1a1a;
+  border: 1px solid rgb(58, 57, 57);
+  color: white;
+  font-size: 18px;
+  width: 30rem;
+  height: 3rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+/* Body input container */
+.create-post-input-body {
+  display: flex;
+  height: 10rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: 250%;
+  font-family: "Oswald", serif;
+}
+
+/* Body textarea */
+#input-body {
+  background-color: #1b1a1a;
+  border: 1px solid rgb(58, 57, 57);
+  color: white;
+  font-size: 18px;
+  width: 30rem;
+  height: 8rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: border-color 0.3s ease;
+  outline: none;
+  resize: none;
+}
+
+/* Tags selection container */
+.create-post-select-tags {
+  display: flex;
+  height: 3rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: 250%;
+  font-family: "Oswald", serif;
+  margin-bottom: 1rem;
+}
+
+/* Tags select dropdown */
+#select-tags {
+  width: 15rem;
+  border: 2px solid #a7a3a3;
+  border-radius: 20px;
+  font-size: 18px;
+  background-color: #a7a3a3;
+  width: 20rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+/* User selection container */
+.create-post-select-user {
+  display: flex;
+  height: 3rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-size: 250%;
+  font-family: "Oswald", serif;
+}
+
+/* User select dropdown */
+#select-user {
+  width: 15rem;
+  border: 2px solid #a7a3a3;
+  border-radius: 20px;
+  font-size: 18px;
+  background-color: #a7a3a3;
+  width: 20rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: border-color 0.3s ease;
+  outline: none;
+}
+
+/* Submit post button */
+.submit-post-button {
+  margin-top: 2rem;
+  height: 3rem;
+  width: 10rem;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  background-color: #a7a3a3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+/* Submit post button hover effect */
+.submit-post-button:hover {
+  background-color: #858282;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Close button for forms */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 100%;
+  color: black;
+  border-radius: 25px;
+  height: 4%;
+  border: none;
+  cursor: pointer;
+  padding: 0 1.5rem;
+  background-color: #a7a3a3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Close button hover effect */
+.close-button:hover {
+  background-color: #858282;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Main search input */
+#input {
+  border: 2px solid #a7a3a3;
+  border-radius: 20px;
+  font-size: 18px;
+  background-color: #a7a3a3;
+  width: 20rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: border-color 0.3s ease;
+  outline: none;
+}

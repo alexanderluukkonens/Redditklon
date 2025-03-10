@@ -1,3 +1,6 @@
+/* Main CSS for the Reddit Clone application */
+
+/* Base styles */
 body {
   background-color: #1b1a1a;
   padding: 0;
@@ -5,6 +8,7 @@ body {
   font-family: "Oswald", serif;
 }
 
+/* Navigation bar styles */
 .navbar {
   width: 100%;
   background-color: #1b1a1a;
@@ -36,6 +40,7 @@ body {
   margin-right: 2rem;
 }
 
+/* Header image */
 #header-top-img {
   height: 8rem;
   width: auto;
@@ -44,17 +49,7 @@ body {
   margin-left: 0%;
 }
 
-#input {
-  border: 2px solid #a7a3a3;
-  border-radius: 20px;
-  font-size: 18px;
-  background-color: #a7a3a3;
-  width: 20rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  transition: border-color 0.3s ease;
-  outline: none;
-}
-
+/* Navigation buttons */
 .navbar-buttons {
   display: flex;
   gap: 1rem;
@@ -84,11 +79,13 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Content layout */
 .content-wrapper {
   display: flex;
   width: 100%;
 }
 
+/* Main content section */
 #main-section {
   display: flex;
   align-items: center;
@@ -99,6 +96,7 @@ body {
   color: white;
 }
 
+/* Post preview in the main feed */
 .main-section-posts {
   display: flex;
   flex-direction: column;
@@ -144,6 +142,7 @@ body {
   background-color: none;
   font-size: large;
 }
+
 .main-section-user {
   display: flex;
   margin: 0.5rem;
@@ -153,6 +152,7 @@ body {
   background-color: none;
 }
 
+/* Left sidebar */
 .left-bar {
   display: flex;
   min-height: 100vh;
@@ -168,6 +168,7 @@ body {
   margin-top: 25%;
 }
 
+/* Right sidebar */
 .right-bar {
   display: flex;
   min-height: 100vh;
@@ -176,179 +177,20 @@ body {
   color: white;
 }
 
-#create-post-box {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  min-height: 50%;
-  width: 50%;
-  background-color: #1b1a1a;
+/* Loading and error messages */
+.loading-message {
   color: white;
-  /* Add these properties for better visibility */
-  z-index: 1000;
-  border-radius: 8px;
-  border: 1px solid rgb(58, 57, 57);
-  padding: 10rem;
+  font-size: 1.2rem;
+  margin: 2rem 0;
 }
 
-#create-post-box {
-  /* Add this line */
-  display: none; /* Initially hidden */
-}
-
-.create-post-header {
-  display: flex;
-  /* background-color: blue; */
-  height: 5rem;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  font-size: 250%;
-  font-family: "Oswald", serif;
-  border-bottom: 1px solid rgb(58, 57, 57);
-  margin-top: -10%;
-}
-
-.create-post-input-title {
-  display: flex;
-  /* background-color: blue; */
-  height: 9rem;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  font-size: 250%;
-  font-family: "Oswald", serif;
-  /* border-bottom: 1px solid rgb(58, 57, 57); */
-}
-
-#input-title {
-  background-color: #1b1a1a;
-  border: 1px solid rgb(58, 57, 57);
-  border-radius: 1rem;
-  color: white;
-  font-size: 18px;
-  width: 30rem;
-  height: 3rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  transition: border-color 0.3s ease;
-  outline: none;
-}
-
-.create-post-input-body {
-  display: flex;
-  /* background-color: yellow; */
-  height: 10rem;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  font-size: 250%;
-  font-family: "Oswald", serif;
-  /* border-bottom: 1px solid rgb(58, 57, 57); */
-}
-
-#input-body {
-  background-color: #1b1a1a;
-  border: 1px solid rgb(58, 57, 57);
-  border-radius: 1rem;
-  color: white;
-  font-size: 18px;
-  width: 30rem;
-  height: 8rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  transition: border-color 0.3s ease;
-  outline: none;
-  resize: none;
-}
-
-.create-post-select-tags {
-  display: flex;
-  /* background-color: blue; */
-  height: 3rem;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  font-size: 250%;
-  font-family: "Oswald", serif;
-  margin-bottom: 1rem;
-  /* border-bottom: 1px solid rgb(58, 57, 57); */
-}
-
-#select-tags {
-  width: 15rem;
-  border: 2px solid #a7a3a3;
-  border-radius: 20px;
-  font-size: 18px;
-  background-color: #a7a3a3;
-  width: 20rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  transition: border-color 0.3s ease;
-  outline: none;
-}
-
-.create-post-select-user {
-  display: flex;
-  /* background-color: yellow; */
-  height: 3rem;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  font-size: 250%;
-  font-family: "Oswald", serif;
-  /* border-bottom: 1px solid rgb(58, 57, 57); */
-}
-
-#select-user {
-  width: 15rem;
-  border: 2px solid #a7a3a3;
-  border-radius: 20px;
-  font-size: 18px;
-  background-color: #a7a3a3;
-  width: 20rem;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  transition: border-color 0.3s ease;
-  outline: none;
-}
-
-.submit-post-button {
-  margin-top: 2rem;
-  height: 3rem;
-  width: 10rem;
-  border-radius: 25px;
-  border: none;
-  cursor: pointer;
-  background-color: #a7a3a3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-}
-
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 100%;
-  color: black;
-  border-radius: 25px;
-  height: 4%;
-  border: none;
-  cursor: pointer;
-  padding: 0 1.5rem;
-  background-color: #a7a3a3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.close-button:hover {
-  background-color: #858282;
-  transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.error-message {
+  background-color: #ffeeee;
+  border: 1px solid #ff6666;
+  border-radius: 4px;
+  color: #333;
+  margin: 1rem 0;
+  padding: 1rem;
+  text-align: center;
+  width: 80%;
 }

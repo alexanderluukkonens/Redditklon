@@ -4,35 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/main.css" />
-    <script
-      defer
-      type="module"
-      src="/javascript/storage/localStorageManager.js"
-    ></script>
-    <script defer type="module" src="/javascript/api/apiClient.js"></script>
+    <link rel="stylesheet" href="/css/forms.css" />
     <script defer type="module" src="/javascript/main.js"></script>
-    <script defer type="module" src="/javascript/models/post.js"></script>
-    <script defer type="module" src="/javascript/models/user.js"></script>
-    <script defer type="module" src="/javascript/models/comment.js"></script>
-
-    <script defer type="module" src="/javascript/render.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap"
       rel="stylesheet"
     />
-    <title>Reddit</title>
+    <title>Reddit Clone</title>
   </head>
   <body>
     <div id="page-wrapper">
       <header>
         <nav class="navbar">
           <div class="navbar-left">
-            <img src="/img/RedditIMG.png" id="header-top-img" />
+            <img
+              src="/img/RedditIMG.png"
+              id="header-top-img"
+              alt="Reddit Logo"
+            />
           </div>
           <div class="navbar-center">
-            <input id="input" type="text" , placeholder="Search" />
+            <input id="input" type="text" placeholder="Search" />
           </div>
           <div class="navbar-buttons">
             <button id="create-post-button">Create Post</button>
@@ -52,41 +46,6 @@
             <div>About Reddit</div>
           </div>
         </div>
-        <div id="main-section">
-          <!-- <div class="main-section-posts">
-            <header class="main-section-title">TITLE</header>
-            <section class="main-section-body">BODY</section>
-            <p class="main-section-tags">TAGS</p>
-            <div class="main-section-user">USER-NAME</div>
-          </div> -->
-          <div class="right-bar"></div>
-        </div>
-      </div>
-      <div id="create-post-box">
-        <header class="create-post-header">Create Post</header>
-        <div class="create-post-input-title">
-          <input
-            id="input-title"
-            type="input-title"
-            placeholder="input-title"
-          />
-        </div>
-        <div class="create-post-input-body">
-          <textarea id="input-body" placeholder="input-body"></textarea>
-        </div>
-        <div class="create-post-select-tags">
-          <select id="select-tags" type="tags" placeholder="Choose tags">
-            <option>Choose tags</option>
-            <option value="Andreas">Andreas</option>
-          </select>
-        </div>
-        <div class="create-post-select-user">
-          <select id="select-user" type="user" placeholder="Choose User">
-            <option value="">Choose User</option>
-          </select>
-        </div>
-        <button class="close-button">Close [X]</button>
-        <button class="submit-post-button">Submit Post</button>
       </div>
     </div>
   </body>

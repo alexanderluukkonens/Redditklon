@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/post.css" />
+    <link rel="stylesheet" href="/css/comments.css" />
+    <link rel="stylesheet" href="/css/forms.css" />
+    <script defer type="module" src="/javascript/post.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Reddit Post</title>
+  </head>
+  <body>
+    <div id="page-wrapper">
+      <header>
+        <nav class="navbar">
+          <div class="navbar-left">
+            <img
+              src="/img/RedditIMG.png"
+              id="header-top-img"
+              alt="Reddit Logo"
+            />
+          </div>
+          <div class="navbar-center">
+            <input id="input" type="text" placeholder="Search" />
+          </div>
+          <div class="navbar-buttons">
+            <button id="back-home-button">Back to Home</button>
+            <button>Sign In</button>
+            <button>Sign Up</button>
+          </div>
+        </nav>
+      </header>
+      <div class="content-wrapper">
+        <div class="left-bar">
+          <div id="left-bar-text">
+            <div>Start</div>
+            <div>Popular</div>
+            <div>Explore</div>
+            <div>Help</div>
+            <div>Communities</div>
+            <div>About Reddit</div>
+          </div>
+        </div>
+        <div id="post-section"></div>
+      </div>
+    </div>
+  </body>
+</html>
