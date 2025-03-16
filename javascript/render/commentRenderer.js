@@ -1,5 +1,3 @@
-//commentRenderer.js
-
 import { localStorageManager } from "../storage/localStorageManager.js";
 
 export function renderComments(comments, commentAuthors, commentsSection) {
@@ -78,7 +76,7 @@ export function addNewComment(
 
   // Create new comment object
   const newComment = {
-    id: Date.now(), // Use timestamp as a simple ID
+    id: Date.now(),
     body: commentText,
     postId: Number(postId),
     userId: userId,

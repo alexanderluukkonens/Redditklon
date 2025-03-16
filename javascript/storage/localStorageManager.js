@@ -1,4 +1,3 @@
-//localStorageManager.js
 class LocalStorageManager {
   constructor() {}
 

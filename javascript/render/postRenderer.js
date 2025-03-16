@@ -1,9 +1,7 @@
-// postRenderer.js - Handles rendering of posts in the UI
-
 import { localStorageManager } from "../storage/localStorageManager.js";
 
 export function renderPostPreview(post, user) {
-  // Get the main section where posts will be displayed
+  // Get the main section
   const mainSection = document.getElementById("main-section");
   if (!mainSection) {
     console.log("Main section not found");
@@ -14,12 +12,12 @@ export function renderPostPreview(post, user) {
   const postContainer = document.createElement("div");
   postContainer.classList.add("main-section-posts");
 
-  // Make the post clickable to navigate to the detail page
+  // Navigate to detail page
   postContainer.style.cursor = "pointer";
   postContainer.addEventListener("click", () => {
     // Store post ID in localStorage for the detail page to retrieve
     localStorageManager.saveToLocalStorage("selectedPostId", post.id);
-    // Navigate to post detail page
+
     window.location.href = "post.html";
   });
 
@@ -32,10 +30,10 @@ export function renderPostPreview(post, user) {
   postTitleElement.innerText = post.title;
   postContainer.appendChild(postTitleElement);
 
-  // Create and add post body (truncated if necessary)
+  // Create and add post body
   const postBodyElement = document.createElement("section");
   postBodyElement.classList.add("main-section-body");
-  // Truncate post body if it's longer than 60 characters
+  // Make body to max 60 letters
   postBodyElement.innerText =
     post.body.length > 60 ? post.body.substring(0, 57) + "..." : post.body;
   postContainer.appendChild(postBodyElement);
@@ -113,7 +111,7 @@ export function renderPostDetails(post, authorName) {
   likeButton.innerHTML =
     "👍 <span class='likes-count'>" + post.reactions.likes + "</span>";
   likeButton.addEventListener("click", function (e) {
-    e.stopPropagation(); // Prevent event bubbling
+    e.stopPropagation();
     post.reactions.likes++;
     updatePostReactionsInLocalStorage(post);
     document.querySelector(".likes-count").textContent = post.reactions.likes;
@@ -125,7 +123,7 @@ export function renderPostDetails(post, authorName) {
   dislikeButton.innerHTML =
     "👎 <span class='dislikes-count'>" + post.reactions.dislikes + "</span>";
   dislikeButton.addEventListener("click", function (e) {
-    e.stopPropagation(); // Prevent event bubbling
+    e.stopPropagation();
     post.reactions.dislikes++;
     updatePostReactionsInLocalStorage(post);
     document.querySelector(".dislikes-count").textContent =

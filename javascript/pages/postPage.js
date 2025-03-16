@@ -1,5 +1,3 @@
-// postPage.js - Post detail page functionality
-
 import { localStorageManager } from "../storage/localStorageManager.js";
 import {
   renderPostDetails,
@@ -8,9 +6,6 @@ import {
 import { renderCommentForm } from "../render/formRenderer.js";
 import { renderComments } from "../render/commentRenderer.js";
 
-/**
- * Initialize the post detail page
- */
 export function initPostPage() {
   // Get the selected post ID from localStorage
   const selectedPostId =
@@ -19,7 +14,7 @@ export function initPostPage() {
   const backHomeButton = document.getElementById("back-home-button");
   if (backHomeButton) {
     backHomeButton.addEventListener("click", () => {
-      window.location.href = "/";
+      window.location.href = "/html";
     });
   }
 
@@ -29,7 +24,6 @@ export function initPostPage() {
   }
 
   try {
-    // Load post data
     const data = loadPostData(selectedPostId);
 
     if (!data.selectedPost) {
@@ -49,6 +43,16 @@ export function initPostPage() {
     console.error("Error loading post data:", error);
     displayErrorMessage("An error occurred while loading the post.");
   }
+}
+// Create click function to home page with logo-img
+const redditLogo = document.getElementById("header-top-img");
+
+if (redditLogo) {
+  redditLogo.style.cursor = "pointer";
+
+  redditLogo.addEventListener("click", () => {
+    window.location.href = "/html";
+  });
 }
 
 function loadPostData(postId) {

@@ -1,12 +1,9 @@
-/* Styles for all form elements in the application */
-
-/* Create post form container */
 #create-post-box {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: none; /* Initially hidden */
+  display: none;
   align-items: center;
   flex-direction: column;
   min-height: 50%;
@@ -19,7 +16,6 @@
   padding: 10rem;
 }
 
-/* Create post form header */
 .create-post-header {
   display: flex;
   height: 5rem;
@@ -32,7 +28,6 @@
   margin-top: -10%;
 }
 
-/* Title input container */
 .create-post-input-title {
   display: flex;
   height: 9rem;
@@ -43,7 +38,6 @@
   font-family: "Oswald", serif;
 }
 
-/* Title input field */
 #input-title {
   background-color: #1b1a1a;
   border: 1px solid rgb(58, 57, 57);
@@ -56,7 +50,6 @@
   outline: none;
 }
 
-/* Body input container */
 .create-post-input-body {
   display: flex;
   height: 10rem;
@@ -67,7 +60,6 @@
   font-family: "Oswald", serif;
 }
 
-/* Body textarea */
 #input-body {
   background-color: #1b1a1a;
   border: 1px solid rgb(58, 57, 57);
@@ -81,7 +73,6 @@
   resize: none;
 }
 
-/* Tags selection container */
 .create-post-select-tags {
   display: flex;
   height: 3rem;
@@ -93,7 +84,6 @@
   margin-bottom: 1rem;
 }
 
-/* Tags select dropdown */
 #select-tags {
   width: 15rem;
   border: 2px solid #a7a3a3;
@@ -106,7 +96,6 @@
   outline: none;
 }
 
-/* User selection container */
 .create-post-select-user {
   display: flex;
   height: 3rem;
@@ -117,9 +106,7 @@
   font-family: "Oswald", serif;
 }
 
-/* User select dropdown */
 #select-user {
-  width: 15rem;
   border: 2px solid #a7a3a3;
   border-radius: 20px;
   font-size: 18px;
@@ -130,7 +117,6 @@
   outline: none;
 }
 
-/* Submit post button */
 .submit-post-button {
   margin-top: 2rem;
   height: 3rem;
@@ -145,14 +131,12 @@
   font-size: 1rem;
 }
 
-/* Submit post button hover effect */
 .submit-post-button:hover {
   background-color: #858282;
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Close button for forms */
 .close-button {
   position: absolute;
   top: 10px;
@@ -173,21 +157,81 @@
   justify-content: center;
 }
 
-/* Close button hover effect */
 .close-button:hover {
   background-color: #858282;
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Main search input */
 #input {
   border: 2px solid #a7a3a3;
   border-radius: 20px;
   font-size: 18px;
-  background-color: #a7a3a3;
+  background-color: #d4d2d2;
   width: 20rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   transition: border-color 0.3s ease;
   outline: none;
+}
+
+.create-post-tags-container {
+  margin-top: 2rem;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.tags-selection-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20rem;
+}
+
+#select-tags {
+  width: 20rem;
+  border: 2px solid #a7a3a3;
+  border-radius: 20px;
+  font-size: 18px;
+  background-color: #a7a3a3;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  transition: border-color 0.3s ease;
+  outline: none;
+  margin-bottom: 1rem;
+}
+
+.selected-tags-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 2rem;
+  padding: 0.5rem;
+  /* background-color: #252424; */
+  border-radius: 8px;
+}
+
+.tag-pill {
+  display: flex;
+  align-items: center;
+  background-color: #444;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+.remove-tag {
+  margin-left: 0.4rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: #ff4500;
+}
+
+.remove-tag:hover {
+  color: #ff7b3a;
 }

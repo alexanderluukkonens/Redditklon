@@ -1,5 +1,3 @@
-//mainPage.js
-
 import { api } from "../api/apiClient.js";
 import { localStorageManager } from "../storage/localStorageManager.js";
 import { renderPostPreview } from "../render/postRenderer.js";
@@ -7,13 +5,10 @@ import { renderCreatePostForm } from "../render/formRenderer.js";
 
 export async function initMainPage() {
   try {
-    // Register event listeners
     setupEventListeners();
 
-    // Load data (posts, users, comments)
     const data = await loadData();
 
-    // Setup main content area
     setupMainSection();
 
     // Render all posts
@@ -25,7 +20,6 @@ export async function initMainPage() {
 }
 
 function setupEventListeners() {
-  // Create post button
   document
     .getElementById("create-post-button")
     .addEventListener("click", () => {
@@ -39,9 +33,19 @@ function setupEventListeners() {
         uniqueTags = [...new Set(allTags)];
       }
 
-      // Show the create post form
       renderCreatePostForm(usersData, uniqueTags);
     });
+}
+
+// Create click function to home page with logo-img
+const redditLogo = document.getElementById("header-top-img");
+
+if (redditLogo) {
+  redditLogo.style.cursor = "pointer";
+
+  redditLogo.addEventListener("click", () => {
+    window.location.href = "/html";
+  });
 }
 
 async function loadData() {
@@ -139,7 +143,7 @@ function renderPosts(postsData, usersData, commentsData) {
     const rightBar = document.createElement("div");
     rightBar.classList.add("right-bar");
     mainSection.appendChild(rightBar);
-  }, 100); // Short delay to allow UI refresh
+  }, 100);
 }
 
 function displayError(message) {
