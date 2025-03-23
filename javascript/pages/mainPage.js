@@ -26,7 +26,7 @@ function setupEventListeners() {
       const postsData = localStorageManager.getFromLocalStorage("posts");
       const usersData = localStorageManager.getFromLocalStorage("users");
 
-      // Extract unique tags from all posts
+      // Unique tags from all posts
       let uniqueTags = [];
       if (postsData && postsData.posts && postsData.posts.length) {
         const allTags = postsData.posts.flatMap((post) => post.tags);

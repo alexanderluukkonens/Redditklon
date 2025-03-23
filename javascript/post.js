@@ -2,5 +2,9 @@ import { initPostPage } from "./pages/postPage.js";
 
 // Wait for the DOM to be loaded
 document.addEventListener("DOMContentLoaded", function () {
-  initPostPage();
+  try {
+    initPostPage();
+  } catch (error) {
+    console.error("Error initializing post page:", error);
+  }
 });

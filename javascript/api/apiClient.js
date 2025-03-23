@@ -3,7 +3,7 @@ import { localStorageManager } from "../storage/localStorageManager.js";
 class ApiClient {
   async fetchPostsFromDummyJson() {
     try {
-      const response = await fetch("https://dummyjson.com/posts/");
+      const response = await fetch("https://dummyjson.com/posts?limit=15");
 
       if (!response.ok) {
         throw new Error(
@@ -58,7 +58,7 @@ class ApiClient {
       }
 
       const data = await response.json();
-      // Make sure commentsData follows expected structure
+
       if (!data.comments) {
         data.comments = [];
       }
