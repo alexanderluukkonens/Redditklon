@@ -1,3 +1,4 @@
+// pages/mainPage.js
 import { api } from "../api/apiClient.js";
 import { localStorageManager } from "../storage/localStorageManager.js";
 import { renderPostPreview } from "../render/postRenderer.js";
@@ -7,7 +8,25 @@ export async function initMainPage() {
   try {
     setupEventListeners();
 
+    // Show loading spinner/message while data is being fetched
+    const contentWrapper = document.querySelector(".content-wrapper");
+    if (contentWrapper) {
+      const loadingIndicator = document.createElement("div");
+      loadingIndicator.id = "loading-indicator";
+      loadingIndicator.textContent = "Loading content...";
+      loadingIndicator.style.color = "white";
+      loadingIndicator.style.textAlign = "center";
+      loadingIndicator.style.padding = "20px";
+      contentWrapper.appendChild(loadingIndicator);
+    }
+
     const data = await loadData();
+
+    // Remove loading indicator
+    const loadingIndicator = document.getElementById("loading-indicator");
+    if (loadingIndicator) {
+      loadingIndicator.remove();
+    }
 
     setupMainSection();
 
@@ -20,9 +39,9 @@ export async function initMainPage() {
 }
 
 function setupEventListeners() {
-  document
-    .getElementById("create-post-button")
-    .addEventListener("click", () => {
+  const createPostButton = document.getElementById("create-post-button");
+  if (createPostButton) {
+    createPostButton.addEventListener("click", () => {
       const postsData = localStorageManager.getFromLocalStorage("posts");
       const usersData = localStorageManager.getFromLocalStorage("users");
 
@@ -35,53 +54,61 @@ function setupEventListeners() {
 
       renderCreatePostForm(usersData, uniqueTags);
     });
-}
+  }
 
-// Create click function to home page with logo-img
-const redditLogo = document.getElementById("header-top-img");
-
-if (redditLogo) {
-  redditLogo.style.cursor = "pointer";
-
-  redditLogo.addEventListener("click", () => {
-    window.location.href = "/html";
-  });
+  // Create click function to home page with logo-img
+  const redditLogo = document.getElementById("header-top-img");
+  if (redditLogo) {
+    redditLogo.style.cursor = "pointer";
+    redditLogo.addEventListener("click", () => {
+      window.location.href = "/html";
+    });
+  }
 }
 
 async function loadData() {
-  // Get posts from localStorage or API
+  // Check if we have valid data in localStorage
   let postsData = localStorageManager.getFromLocalStorage("posts");
-
-  // Handle different data formats
-  if (Array.isArray(postsData)) {
-    const postsArray = postsData;
-    postsData = { posts: postsArray };
-    localStorageManager.saveToLocalStorage("posts", postsData);
-  }
-
-  // Fetch posts if they don't exist
-  if (!postsData || !postsData.posts || !postsData.posts.length) {
-    const response = await api.fetchPostsFromDummyJson();
-    postsData = response;
-    localStorageManager.saveToLocalStorage("posts", postsData);
-  }
-
-  // Get users from localStorage or API
   let usersData = localStorageManager.getFromLocalStorage("users");
-  if (!usersData || !usersData.users || !usersData.users.length) {
-    usersData = await api.fetchUsersFromDummyJson();
-    localStorageManager.saveToLocalStorage("users", usersData);
+  let commentsData = localStorageManager.getFromLocalStorage("comments");
+
+  // Check if we have all necessary data
+  const hasValidData =
+    postsData &&
+    postsData.posts &&
+    postsData.posts.length &&
+    usersData &&
+    usersData.users &&
+    usersData.users.length &&
+    commentsData &&
+    commentsData.comments &&
+    commentsData.comments.length;
+
+  // Check if we have users for all posts
+  let allPostsHaveUsers = false;
+  if (hasValidData) {
+    const postUserIds = postsData.posts.map((post) => post.userId);
+    const userIds = usersData.users.map((user) => user.id);
+    allPostsHaveUsers = postUserIds.every((id) => userIds.includes(id));
   }
 
-  // Get comments from localStorage or API
-  let commentsData = localStorageManager.getFromLocalStorage("comments");
-  if (
-    !commentsData ||
-    !commentsData.comments ||
-    !commentsData.comments.length
-  ) {
-    commentsData = await api.fetchCommentsFromDummyJson();
-    localStorageManager.saveToLocalStorage("comments", commentsData);
+  // Fetch new data if any data is missing or posts don't have matching users
+  if (!hasValidData || !allPostsHaveUsers) {
+    console.log("Fetching all data...");
+    const fetchedData = await api.fetchAllData();
+
+    postsData = fetchedData.posts;
+    usersData = fetchedData.users;
+    commentsData = fetchedData.comments;
+  } else {
+    console.log("Using cached data from localStorage");
+
+    // Handle different data formats if data exists
+    if (Array.isArray(postsData)) {
+      const postsArray = postsData;
+      postsData = { posts: postsArray };
+      localStorageManager.saveToLocalStorage("posts", postsData);
+    }
   }
 
   return { postsData, usersData, commentsData };
@@ -124,6 +151,16 @@ function renderPosts(postsData, usersData, commentsData) {
     // Render posts if they exist
     if (postsData && postsData.posts && postsData.posts.length > 0) {
       console.log(`Rendering ${postsData.posts.length} posts`);
+
+      // Debug: Check if all posts have matching users
+      postsData.posts.forEach((post) => {
+        const user = usersData.users.find((user) => user.id === post.userId);
+        if (!user) {
+          console.warn(
+            `No user found for post ID: ${post.id}, user ID: ${post.userId}`
+          );
+        }
+      });
 
       // Render each post
       postsData.posts.forEach((post) => {

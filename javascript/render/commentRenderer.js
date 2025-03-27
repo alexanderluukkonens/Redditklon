@@ -1,3 +1,4 @@
+// render/commentRenderer.js
 import { localStorageManager } from "../storage/localStorageManager.js";
 
 export function renderComments(comments, commentAuthors, commentsSection) {
@@ -9,12 +10,38 @@ export function renderComments(comments, commentAuthors, commentsSection) {
 
   // Add existing comments
   if (comments && comments.length > 0) {
-    comments.forEach((comment) => {
-      renderSingleComment(
-        comment,
-        commentAuthors[comment.id] || "Unknown User",
-        commentsSection
-      );
+    // Sort comments by most recent first (if they have timestamps)
+    const sortedComments = [...comments].sort((a, b) => {
+      // If using IDs as timestamps (higher ID is newer)
+      return b.id - a.id;
+    });
+
+    sortedComments.forEach((comment) => {
+      // Get the username for this comment
+      let authorName = "Unknown User";
+
+      // First check if we have a direct lookup in commentAuthors
+      if (commentAuthors && commentAuthors[comment.id]) {
+        authorName = commentAuthors[comment.id];
+      }
+      // If not found, try to get from comment.user
+      else if (comment.user && comment.user.username) {
+        authorName = comment.user.username;
+      }
+      // If still not found, try to find in users data using userId
+      else if (comment.userId) {
+        const usersData = localStorageManager.getFromLocalStorage("users");
+        if (usersData && usersData.users) {
+          const user = usersData.users.find(
+            (user) => user.id === comment.userId
+          );
+          if (user && user.username) {
+            authorName = user.username;
+          }
+        }
+      }
+
+      renderSingleComment(comment, authorName, commentsSection);
     });
   } else {
     // Display message if no comments
@@ -23,7 +50,6 @@ export function renderComments(comments, commentAuthors, commentsSection) {
     noComments.classList.add("no-comments-message");
     commentsSection.appendChild(noComments);
   }
-
   return commentsTitle;
 }
 
