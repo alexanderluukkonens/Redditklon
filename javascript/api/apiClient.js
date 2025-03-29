@@ -20,7 +20,9 @@ class ApiClient {
       const users = await usersResponse.json();
 
       // Fetch comments
-      const commentsResponse = await fetch("https://dummyjson.com/comments");
+      const commentsResponse = await fetch(
+        "https://dummyjson.com/comments?limit=500"
+      );
       const comments = await commentsResponse.json();
 
       // Get user IDs from posts and comments
