@@ -6,28 +6,25 @@
   display: none;
   align-items: center;
   flex-direction: column;
-  height: 50%;
-  /* min-height: 50%; */
-  /* max-height: 10%; */
+  height: 80%;
+  min-height: 80%;
   width: 50%;
   background-color: #1b1a1a;
   color: white;
   z-index: 1000;
   border-radius: 8px;
   border: 1px solid rgb(58, 57, 57);
-  padding: 10rem;
+  padding: 3rem;
 }
 
 .create-post-header {
-  display: flex;
-  height: 5rem;
-  width: 100%;
+  text-align: center;
+  width: 80%;
   align-items: center;
   justify-content: center;
   font-size: 250%;
   font-family: "Oswald", serif;
   border-bottom: 1px solid rgb(58, 57, 57);
-  margin-top: -10%;
 }
 
 .create-post-input-title {
