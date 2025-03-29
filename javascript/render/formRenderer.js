@@ -1,65 +1,60 @@
+// render/formRenderer.js
 import { localStorageManager } from "../storage/localStorageManager.js";
 
 export function renderCreatePostForm(users, tags) {
   // Get the page wrapper
   const pageWrapper = document.getElementById("page-wrapper");
-  if (!pageWrapper) {
-    console.log("Page wrapper not found");
-    return;
+  if (!pageWrapper) return;
+
+  // Remove existing form if needed
+  let existingForm = document.getElementById("create-post-box");
+  if (existingForm) {
+    existingForm.remove();
   }
 
-  // Check if the create post box already exists, remove it if it does
-  let existingCreatePostBox = document.getElementById("create-post-box");
-  if (existingCreatePostBox) {
-    existingCreatePostBox.remove();
-  }
-
-  // Create the post box container
+  // Create form container
   const createPostBox = document.createElement("div");
   createPostBox.id = "create-post-box";
   createPostBox.style.display = "flex";
 
   // Create header
-  const createPostHeader = document.createElement("header");
-  createPostHeader.classList.add("create-post-header");
-  createPostHeader.innerText = "Create Post";
-  createPostBox.appendChild(createPostHeader);
+  const formHeader = document.createElement("header");
+  formHeader.classList.add("create-post-header");
+  formHeader.innerText = "Create Post";
+  createPostBox.appendChild(formHeader);
 
-  // Create title input container and input
-  const titleInputContainer = document.createElement("div");
-  titleInputContainer.classList.add("create-post-input-title");
+  // Create title input
+  const titleContainer = document.createElement("div");
+  titleContainer.classList.add("create-post-input-title");
 
   const titleInput = document.createElement("input");
   titleInput.id = "input-title";
   titleInput.type = "text";
   titleInput.placeholder = "Write your title..";
 
-  titleInputContainer.appendChild(titleInput);
-  createPostBox.appendChild(titleInputContainer);
+  titleContainer.appendChild(titleInput);
+  createPostBox.appendChild(titleContainer);
 
-  // Create body input container and textarea
-  const bodyInputContainer = document.createElement("div");
-  bodyInputContainer.classList.add("create-post-input-body");
+  // Create body input
+  const bodyContainer = document.createElement("div");
+  bodyContainer.classList.add("create-post-input-body");
 
   const bodyInput = document.createElement("textarea");
   bodyInput.id = "input-body";
   bodyInput.placeholder = "Whats on your mind?";
 
-  bodyInputContainer.appendChild(bodyInput);
-  createPostBox.appendChild(bodyInputContainer);
+  bodyContainer.appendChild(bodyInput);
+  createPostBox.appendChild(bodyContainer);
 
-  // Create tags select container with tag display area
+  // Create tags container with selected tags functionality
   const tagsContainer = document.createElement("div");
   tagsContainer.classList.add("create-post-tags-container");
 
-  // Create dropdown and selected tags area wrapper
-  const tagsSelectionWrapper = document.createElement("div");
-  tagsSelectionWrapper.classList.add("tags-selection-wrapper");
+  const tagsWrapper = document.createElement("div");
+  tagsWrapper.classList.add("tags-selection-wrapper");
 
-  // Create dropdown for tags
   const tagsSelect = document.createElement("select");
   tagsSelect.id = "select-tags";
-  tagsSelect.placeholder = "Choose tags";
 
   // Default option
   const defaultTagOption = document.createElement("option");
@@ -77,35 +72,29 @@ export function renderCreatePostForm(users, tags) {
     });
   }
 
-  // Create selected tags display area
   const selectedTagsDisplay = document.createElement("div");
   selectedTagsDisplay.classList.add("selected-tags-display");
 
-  // Add dropdown and selected tags area to the wrapper
-  tagsSelectionWrapper.appendChild(tagsSelect);
-  tagsSelectionWrapper.appendChild(selectedTagsDisplay);
+  tagsWrapper.appendChild(tagsSelect);
+  tagsWrapper.appendChild(selectedTagsDisplay);
+  tagsContainer.appendChild(tagsWrapper);
+  createPostBox.appendChild(tagsContainer);
 
-  // Store selected tags array (hidden from UI but used when creating post)
+  // Store selected tags
   const selectedTags = [];
 
-  // Add event listener to dropdown to add selected tags
+  // Handle tag selection
   tagsSelect.addEventListener("change", function () {
     const selectedValue = this.value;
-    const selectedIndex = this.selectedIndex;
+    if (!selectedValue) return;
 
-    // Skip if default option is selected
-    if (selectedIndex === 0 || selectedValue === "") {
-      return;
-    }
-
-    // Check if tag is already selected
+    // Skip if already selected
     if (selectedTags.includes(selectedValue)) {
-      // Reset dropdown to default option
       this.selectedIndex = 0;
       return;
     }
 
-    // Add tag to the selected tags array
+    // Add tag to array
     selectedTags.push(selectedValue);
 
     // Create tag pill
@@ -115,33 +104,26 @@ export function renderCreatePostForm(users, tags) {
 
     // Add remove functionality
     tagPill.querySelector(".remove-tag").addEventListener("click", function () {
-      // Remove tag from array
-      const tagIndex = selectedTags.indexOf(selectedValue);
-      if (tagIndex !== -1) {
-        selectedTags.splice(tagIndex, 1);
+      const index = selectedTags.indexOf(selectedValue);
+      if (index !== -1) {
+        selectedTags.splice(index, 1);
       }
-
-      // Remove pill from display
       selectedTagsDisplay.removeChild(tagPill);
     });
 
-    // Add pill to display area
+    // Add pill to display
     selectedTagsDisplay.appendChild(tagPill);
 
-    // Reset dropdown to default option
+    // Reset dropdown
     this.selectedIndex = 0;
   });
 
-  tagsContainer.appendChild(tagsSelectionWrapper);
-  createPostBox.appendChild(tagsContainer);
-
-  // Create user select container and select
-  const userSelectContainer = document.createElement("div");
-  userSelectContainer.classList.add("create-post-select-user");
+  // Create user select
+  const userContainer = document.createElement("div");
+  userContainer.classList.add("create-post-select-user");
 
   const userSelect = document.createElement("select");
   userSelect.id = "select-user";
-  userSelect.placeholder = "Choose User";
 
   // Default option
   const defaultUserOption = document.createElement("option");
@@ -159,8 +141,8 @@ export function renderCreatePostForm(users, tags) {
     });
   }
 
-  userSelectContainer.appendChild(userSelect);
-  createPostBox.appendChild(userSelectContainer);
+  userContainer.appendChild(userSelect);
+  createPostBox.appendChild(userContainer);
 
   // Create close button
   const closeButton = document.createElement("button");
@@ -176,59 +158,48 @@ export function renderCreatePostForm(users, tags) {
   submitButton.classList.add("submit-post-button");
   submitButton.innerText = "Submit Post";
 
-  // Add event listener for form
+  // Handle form submission
   submitButton.onclick = function () {
     // Get form values
     const title = titleInput.value.trim();
     const body = bodyInput.value.trim();
-    const selectedUserIndex = userSelect.selectedIndex;
+    const userId = userSelect.value;
 
     // Validate form
-    if (
-      !title ||
-      !body ||
-      selectedTags.length === 0 ||
-      selectedUserIndex === 0
-    ) {
+    if (!title || !body || selectedTags.length === 0 || !userId) {
       alert("Please fill in all fields and select at least one tag");
       return;
     }
 
-    // Get selected user ID
-    const userId = parseInt(userSelect.options[selectedUserIndex].value);
-
-    // Create new post object
+    // Create post object
     const newPost = {
       id: Date.now(),
       title: title,
       body: body,
       tags: selectedTags,
-      userId: userId,
+      userId: parseInt(userId),
       reactions: { likes: 0, dislikes: 0 },
-      views: 0,
     };
 
-    // Save post to localStorage
+    // Save post
     saveNewPost(newPost);
 
-    // Hide the create post form
+    // Hide form and refresh
     createPostBox.style.display = "none";
-
-    // Refresh the page to show the new post
     location.reload();
   };
 
   createPostBox.appendChild(submitButton);
 
-  // Append the create post box to the page wrapper
+  // Add to page
   pageWrapper.appendChild(createPostBox);
 }
 
 function saveNewPost(newPost) {
-  // Get existing posts from localStorage
+  // Get existing posts
   let postsData = localStorageManager.getFromLocalStorage("posts");
 
-  // Initialize postsData if it doesn't exist or is in the wrong format
+  // Initialize if needed
   if (!postsData) {
     postsData = { posts: [] };
   } else if (Array.isArray(postsData)) {
@@ -237,10 +208,10 @@ function saveNewPost(newPost) {
     postsData.posts = [];
   }
 
-  // Add the new post to the beginning of the posts array
+  // Add new post to beginning
   postsData.posts.unshift(newPost);
 
-  // Save updated posts to localStorage
+  // Save to localStorage
   localStorageManager.saveToLocalStorage("posts", postsData);
 }
 
@@ -250,33 +221,33 @@ export function renderCommentForm(
   commentsSection,
   commentsTitle
 ) {
-  // Create comment form container
+  // Create form container
   const commentForm = document.createElement("div");
   commentForm.classList.add("comment-form");
 
   // Add form title
-  const commentTitle = document.createElement("h3");
-  commentTitle.textContent = "Add a Comment";
-  commentForm.appendChild(commentTitle);
+  const formTitle = document.createElement("h3");
+  formTitle.textContent = "Add a Comment";
+  commentForm.appendChild(formTitle);
 
-  // Create user select element
-  const userSelectContainer = document.createElement("div");
-  userSelectContainer.classList.add("comment-user-select-container");
+  // Create user select
+  const userContainer = document.createElement("div");
+  userContainer.classList.add("comment-user-select-container");
 
-  const userSelectLabel = document.createElement("label");
-  userSelectLabel.textContent = "Comment as:";
-  userSelectLabel.setAttribute("for", "comment-user-select");
-  userSelectContainer.appendChild(userSelectLabel);
+  const userLabel = document.createElement("label");
+  userLabel.textContent = "Comment as:";
+  userLabel.setAttribute("for", "comment-user-select");
+  userContainer.appendChild(userLabel);
 
   const userSelect = document.createElement("select");
   userSelect.id = "comment-user-select";
   userSelect.classList.add("comment-user-select");
 
   // Default option
-  const defaultUserOption = document.createElement("option");
-  defaultUserOption.value = "";
-  defaultUserOption.textContent = "Choose User";
-  userSelect.appendChild(defaultUserOption);
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "";
+  defaultOption.textContent = "Choose User";
+  userSelect.appendChild(defaultOption);
 
   // Add user options
   if (usersData && usersData.users && usersData.users.length) {
@@ -288,51 +259,53 @@ export function renderCommentForm(
     });
   }
 
-  userSelectContainer.appendChild(userSelect);
-  commentForm.appendChild(userSelectContainer);
+  userContainer.appendChild(userSelect);
+  commentForm.appendChild(userContainer);
 
-  // Create textarea for comment
-  const commentTextContainer = document.createElement("div");
-  commentTextContainer.classList.add("comment-text-container");
+  // Create textarea
+  const textContainer = document.createElement("div");
+  textContainer.classList.add("comment-text-container");
 
-  const commentTextarea = document.createElement("textarea");
-  commentTextarea.id = "comment-textarea";
-  commentTextarea.classList.add("comment-textarea");
-  commentTextarea.placeholder = "Write your comment here...";
-  commentTextContainer.appendChild(commentTextarea);
-  commentForm.appendChild(commentTextContainer);
+  const textarea = document.createElement("textarea");
+  textarea.id = "comment-textarea";
+  textarea.classList.add("comment-textarea");
+  textarea.placeholder = "Write your comment here...";
 
-  // Import the addNewComment function from commentRenderer
-  import("./commentRenderer.js").then(({ addNewComment }) => {
-    // Create submit button
-    const submitButton = document.createElement("button");
-    submitButton.classList.add("comment-submit-button");
-    submitButton.textContent = "Submit Comment";
-    submitButton.addEventListener("click", function () {
-      const commentText = commentTextarea.value.trim();
-      const selectedUserId = Number(userSelect.value);
+  textContainer.appendChild(textarea);
+  commentForm.appendChild(textContainer);
 
-      if (!commentText || !selectedUserId) {
-        alert("Please select a user and write a comment.");
-        return;
-      }
+  // Create submit button
+  const submitButton = document.createElement("button");
+  submitButton.classList.add("comment-submit-button");
+  submitButton.textContent = "Submit Comment";
 
-      // Create new comment
+  // Handle submission
+  submitButton.addEventListener("click", function () {
+    const commentText = textarea.value.trim();
+    const userId = Number(userSelect.value);
+
+    if (!commentText || !userId) {
+      alert("Please select a user and write a comment.");
+      return;
+    }
+
+    // Import commentRenderer and add the comment
+    import("./commentRenderer.js").then(({ addNewComment }) => {
       addNewComment(
         postId,
         commentText,
-        selectedUserId,
+        userId,
         commentsSection,
         commentsTitle
       );
 
       // Clear form
-      commentTextarea.value = "";
+      textarea.value = "";
       userSelect.selectedIndex = 0;
     });
-
-    commentForm.appendChild(submitButton);
   });
+
+  commentForm.appendChild(submitButton);
 
   return commentForm;
 }

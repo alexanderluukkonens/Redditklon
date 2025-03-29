@@ -1,4 +1,3 @@
-// pages/mainPage.js
 import { api } from "../api/apiClient.js";
 import { localStorageManager } from "../storage/localStorageManager.js";
 import { renderPostPreview } from "../render/postRenderer.js";
@@ -6,9 +5,10 @@ import { renderCreatePostForm } from "../render/formRenderer.js";
 
 export async function initMainPage() {
   try {
+    // Set up event listeners
     setupEventListeners();
 
-    // Show loading spinner/message while data is being fetched
+    // Show loading indicator
     const contentWrapper = document.querySelector(".content-wrapper");
     if (contentWrapper) {
       const loadingIndicator = document.createElement("div");
@@ -20,6 +20,7 @@ export async function initMainPage() {
       contentWrapper.appendChild(loadingIndicator);
     }
 
+    // Load data
     const data = await loadData();
 
     // Remove loading indicator
@@ -28,13 +29,13 @@ export async function initMainPage() {
       loadingIndicator.remove();
     }
 
+    // Setup main section
     setupMainSection();
 
-    // Render all posts
-    renderPosts(data.postsData, data.usersData, data.commentsData);
+    // Render posts
+    renderPosts(data.postsData, data.usersData);
   } catch (error) {
-    console.error("Error initializing main page:", error);
-    displayError("Failed to initialize page. Please refresh and try again.");
+    displayError("Failed to load content. Please refresh the page.");
   }
 }
 
@@ -45,10 +46,10 @@ function setupEventListeners() {
       const postsData = localStorageManager.getFromLocalStorage("posts");
       const usersData = localStorageManager.getFromLocalStorage("users");
 
-      // Unique tags from all posts
+      // Get unique tags
       let uniqueTags = [];
       if (postsData && postsData.posts && postsData.posts.length) {
-        const allTags = postsData.posts.flatMap((post) => post.tags);
+        const allTags = postsData.posts.flatMap((post) => post.tags || []);
         uniqueTags = [...new Set(allTags)];
       }
 
@@ -56,7 +57,7 @@ function setupEventListeners() {
     });
   }
 
-  // Create click function to home page with logo-img
+  // Logo clickable
   const redditLogo = document.getElementById("header-top-img");
   if (redditLogo) {
     redditLogo.style.cursor = "pointer";
@@ -67,48 +68,27 @@ function setupEventListeners() {
 }
 
 async function loadData() {
-  // Check if we have valid data in localStorage
+  // Check if we have data in localStorage
   let postsData = localStorageManager.getFromLocalStorage("posts");
   let usersData = localStorageManager.getFromLocalStorage("users");
   let commentsData = localStorageManager.getFromLocalStorage("comments");
 
-  // Check if we have all necessary data
-  const hasValidData =
-    postsData &&
-    postsData.posts &&
-    postsData.posts.length &&
-    usersData &&
-    usersData.users &&
-    usersData.users.length &&
-    commentsData &&
-    commentsData.comments &&
-    commentsData.comments.length;
-
-  // Check if we have users for all posts
-  let allPostsHaveUsers = false;
-  if (hasValidData) {
-    const postUserIds = postsData.posts.map((post) => post.userId);
-    const userIds = usersData.users.map((user) => user.id);
-    allPostsHaveUsers = postUserIds.every((id) => userIds.includes(id));
-  }
-
-  // Fetch new data if any data is missing or posts don't have matching users
-  if (!hasValidData || !allPostsHaveUsers) {
-    console.log("Fetching all data...");
+  // Fetch data if any is missing
+  if (
+    !postsData ||
+    !postsData.posts ||
+    !postsData.posts.length ||
+    !usersData ||
+    !usersData.users ||
+    !usersData.users.length ||
+    !commentsData ||
+    !commentsData.comments
+  ) {
     const fetchedData = await api.fetchAllData();
 
     postsData = fetchedData.posts;
     usersData = fetchedData.users;
     commentsData = fetchedData.comments;
-  } else {
-    console.log("Using cached data from localStorage");
-
-    // Handle different data formats if data exists
-    if (Array.isArray(postsData)) {
-      const postsArray = postsData;
-      postsData = { posts: postsArray };
-      localStorageManager.saveToLocalStorage("posts", postsData);
-    }
   }
 
   return { postsData, usersData, commentsData };
@@ -117,58 +97,45 @@ async function loadData() {
 function setupMainSection() {
   const contentWrapper = document.querySelector(".content-wrapper");
 
-  // Check if main section exists already
+  // Check if main section exists
   let mainSection = document.getElementById("main-section");
 
-  // Create it if it doesn't exist
+  // Create or clear it
   if (!mainSection) {
     mainSection = document.createElement("div");
     mainSection.id = "main-section";
     contentWrapper.appendChild(mainSection);
   } else {
-    // Clear existing content if it does exist
-    while (mainSection.firstChild) {
-      mainSection.removeChild(mainSection.firstChild);
-    }
+    mainSection.innerHTML = "";
   }
 }
 
-function renderPosts(postsData, usersData, commentsData) {
+function renderPosts(postsData, usersData) {
   const mainSection = document.getElementById("main-section");
   if (!mainSection) return;
 
-  // Add a loading message
+  // Add loading message
   const loadingMessage = document.createElement("div");
   loadingMessage.classList.add("loading-message");
   loadingMessage.textContent = "Loading posts...";
   mainSection.appendChild(loadingMessage);
 
-  // Use setTimeout to allow the UI to update with the loading message
+  // Use setTimeout to let UI update
   setTimeout(() => {
-    // Remove the loading message
+    // Remove loading message
     mainSection.removeChild(loadingMessage);
 
     // Render posts if they exist
     if (postsData && postsData.posts && postsData.posts.length > 0) {
       console.log(`Rendering ${postsData.posts.length} posts`);
 
-      // Debug: Check if all posts have matching users
-      postsData.posts.forEach((post) => {
-        const user = usersData.users.find((user) => user.id === post.userId);
-        if (!user) {
-          console.warn(
-            `No user found for post ID: ${post.id}, user ID: ${post.userId}`
-          );
-        }
-      });
-
       // Render each post
       postsData.posts.forEach((post) => {
         const user = usersData.users.find((user) => user.id === post.userId);
-        renderPostPreview(post, user);
+        renderPostPreview(post, user || { username: "Unknown User" });
       });
     } else {
-      // Show a message if no posts exist
+      // Show message if no posts
       const noPostsMessage = document.createElement("div");
       noPostsMessage.textContent = "No posts yet. Create the first post!";
       noPostsMessage.style.color = "white";
@@ -176,7 +143,7 @@ function renderPosts(postsData, usersData, commentsData) {
       mainSection.appendChild(noPostsMessage);
     }
 
-    // Add the right sidebar
+    // Add right sidebar
     const rightBar = document.createElement("div");
     rightBar.classList.add("right-bar");
     mainSection.appendChild(rightBar);

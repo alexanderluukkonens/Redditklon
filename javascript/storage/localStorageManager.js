@@ -1,20 +1,21 @@
-class LocalStorageManager {
+export class LocalStorageManager {
   constructor() {}
 
   getFromLocalStorage(key) {
-    const data = localStorage.getItem(key);
-
-    if (data !== null) {
-      return JSON.parse(data); // If data excist, convert and return
-    } else {
-      return []; // if data is 0, return empty array
+    try {
+      const data = localStorage.getItem(key);
+      return data ? JSON.parse(data) : null;
+    } catch (error) {
+      console.log(`Error getting ${key} from localStorage`);
+      return null;
     }
   }
 
   saveToLocalStorage(key, value) {
-    if (key && value !== undefined) {
-      const jsonData = JSON.stringify(value); // Convert value to string
-      localStorage.setItem(key, jsonData); // Save to localstorage
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.log(`Error saving ${key} to localStorage`);
     }
   }
 }

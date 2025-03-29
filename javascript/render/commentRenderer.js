@@ -1,4 +1,3 @@
-// render/commentRenderer.js
 import { localStorageManager } from "../storage/localStorageManager.js";
 
 export function renderComments(comments, commentAuthors, commentsSection) {
@@ -10,35 +9,14 @@ export function renderComments(comments, commentAuthors, commentsSection) {
 
   // Add existing comments
   if (comments && comments.length > 0) {
-    // Sort comments by most recent first (if they have timestamps)
-    const sortedComments = [...comments].sort((a, b) => {
-      // If using IDs as timestamps (higher ID is newer)
-      return b.id - a.id;
-    });
+    // Sort by newest first
+    const sortedComments = [...comments].sort((a, b) => b.id - a.id);
 
     sortedComments.forEach((comment) => {
-      // Get the username for this comment
+      // Get author name from the provided mapping
       let authorName = "Unknown User";
-
-      // First check if we have a direct lookup in commentAuthors
       if (commentAuthors && commentAuthors[comment.id]) {
         authorName = commentAuthors[comment.id];
-      }
-      // If not found, try to get from comment.user
-      else if (comment.user && comment.user.username) {
-        authorName = comment.user.username;
-      }
-      // If still not found, try to find in users data using userId
-      else if (comment.userId) {
-        const usersData = localStorageManager.getFromLocalStorage("users");
-        if (usersData && usersData.users) {
-          const user = usersData.users.find(
-            (user) => user.id === comment.userId
-          );
-          if (user && user.username) {
-            authorName = user.username;
-          }
-        }
       }
 
       renderSingleComment(comment, authorName, commentsSection);
@@ -50,6 +28,7 @@ export function renderComments(comments, commentAuthors, commentsSection) {
     noComments.classList.add("no-comments-message");
     commentsSection.appendChild(noComments);
   }
+
   return commentsTitle;
 }
 
@@ -57,7 +36,7 @@ export function renderSingleComment(comment, authorName, commentsSection) {
   const commentContainer = document.createElement("div");
   commentContainer.classList.add("comment-container");
 
-  // Add comment text
+  // Add comment body
   const commentBody = document.createElement("div");
   commentBody.classList.add("comment-body");
   commentBody.textContent = comment.body;
@@ -69,7 +48,7 @@ export function renderSingleComment(comment, authorName, commentsSection) {
   commentUser.textContent = `Posted by: ${authorName}`;
   commentContainer.appendChild(commentUser);
 
-  // Insert new comment before the comment form or at the end
+  // Insert before comment form if it exists
   const commentForm = commentsSection.querySelector(".comment-form");
   if (commentForm) {
     commentsSection.insertBefore(commentContainer, commentForm);
@@ -91,7 +70,7 @@ export function addNewComment(
   let commentsData = localStorageManager.getFromLocalStorage("comments");
   const usersData = localStorageManager.getFromLocalStorage("users");
 
-  // Initialize commentsData if it doesn't exist or is in wrong format
+  // Initialize commentsData if needed
   if (!commentsData) {
     commentsData = { comments: [] };
   } else if (Array.isArray(commentsData)) {
@@ -100,7 +79,7 @@ export function addNewComment(
     commentsData.comments = [];
   }
 
-  // Create new comment object
+  // Create new comment
   const newComment = {
     id: Date.now(),
     body: commentText,
@@ -109,13 +88,13 @@ export function addNewComment(
     likes: 0,
   };
 
-  // Add new comment to the comments array
+  // Add to comments array
   commentsData.comments.push(newComment);
 
-  // Save updated comments to localStorage
+  // Save to localStorage
   localStorageManager.saveToLocalStorage("comments", commentsData);
 
-  // Find the username
+  // Find username
   let username = "Unknown User";
   if (usersData && usersData.users) {
     const user = usersData.users.find((user) => user.id === userId);
@@ -124,7 +103,7 @@ export function addNewComment(
     }
   }
 
-  // Find and remove "no comments" message if it exists
+  // Remove "no comments" message if it exists
   const noCommentsMessage = commentsSection.querySelector(
     ".no-comments-message"
   );
@@ -135,7 +114,7 @@ export function addNewComment(
   // Render the new comment
   renderSingleComment(newComment, username, commentsSection);
 
-  // Update comments count in title
+  // Update comment count
   const currentCommentCount = commentsData.comments.filter(
     (comment) => comment.postId == postId
   ).length;
