@@ -1,4 +1,3 @@
-// render/formRenderer.js
 import { localStorageManager } from "../storage/localStorageManager.js";
 
 export function renderCreatePostForm(users, tags) {
